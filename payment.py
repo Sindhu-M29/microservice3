@@ -1,10 +1,9 @@
 from flask import Flask, jsonify, request
 import requests
-import os  # Import the os module to access environment variables
+import os
 
 # Use the environment variable for the URL
 URL = os.environ.get('API_URL') + "/getAvailableFlights"
-# URL = "http://54.87.165.151:5000" + "/getAvailableFlights"
 
 app = Flask(__name__)
 
@@ -20,10 +19,12 @@ def get_total_amount():
     if num_seats <= 0:
         return jsonify({'error': 'Number of seats must be greater than zero'}), 400
 
-    # Use the URL variable instead of the string 'URL'
-    api1_response = requests.get(URL)
+    try:
+        # Use the URL variable instead of the string 'URL'
+        api1_response = requests.get(URL)
 
-    if api1_response.status_code == 200:
+        api1_response.raise_for_status()  # Raise an HTTPError for bad responses
+
         available_flights = api1_response.json()['flights']
 
         # Find the flight with the specified flight number
@@ -35,8 +36,8 @@ def get_total_amount():
             return jsonify({'flightNumber': flight_number, 'numSeats': num_seats, 'totalAmount': total_amount})
         else:
             return jsonify({'error': 'Flight not found'}), 404
-    else:
-        return jsonify({'error': 'Failed to retrieve data from API1'}), api1_response.status_code
+    except requests.exceptions.RequestException as e:
+        return jsonify({'error': f'Failed to retrieve data from API1. {str(e)}'}), 500
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(host='0.0.0.0', port=5001, debug=True)
