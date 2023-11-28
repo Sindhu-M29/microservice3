@@ -13,8 +13,7 @@ def get_total_amount():
         return jsonify({'error': 'Flight number is required'}), 400
 
 
-    if not num_seats:
-        return jsonify({'error': 'number of seats is required'}), 400
+
 
     Flight = f'http://localhost:5000/getAvailableFlights'
 
