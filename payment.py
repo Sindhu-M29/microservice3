@@ -3,7 +3,9 @@ import requests
 import os
 
 # Use the environment variable for the URL
-URL = os.environ.get('API_URL') + "/getAvailableFlights"
+API_URL = os.environ.get('API_URL', 'http://127.0.0.1:5000')
+URL = API_URL + "/getAvailableFlights"
+# URL = "http://127.0.0.1:5000" + "/getAvailableFlights"
 
 app = Flask(__name__)
 
