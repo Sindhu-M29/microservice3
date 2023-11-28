@@ -15,7 +15,7 @@ def get_total_amount():
 
 
 
-    Flight = f'http://localhost:5000/getAvailableFlights'
+    Flight = f'http://172.17.0.3:5000/getAvailableFlights'
 
    
     api1_response = requests.get(Flight)
