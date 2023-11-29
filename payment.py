@@ -3,7 +3,7 @@ import requests
 import os
 
 # Use the environment variable for the URL
-API_URL = os.environ.get('API_URL', 'http://54.89.47.242:5000')
+API_URL = os.environ.get('API_URL', 'http://18.234.189.53:5000')
 URL = API_URL + "/getAvailableFlights"
 # URL = "http://127.0.0.1:5000" + "/getAvailableFlights"
 
